@@ -16,6 +16,8 @@ searchForm.addEventListener('submit', (e) => {
   console.log(chosenCity); //this works 
   fetch(queryURL)
   .then(response => response.json())
-
+  .then(data => {
+    console.log(data); //works 
+  })
 
 }); 
