@@ -34,10 +34,15 @@ let APIKey = "bdd2c0c8b3b660738955be8280edc04c";
 let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + chosenCity + "&appid=" + APIKey;
 
 //get values from API
+// LOOKING FOR PLACE, TEMP, WIND, HUMIDITY 
 fetch(queryURL)
     .then(response => response.json())
     .then(data => {
       console.log(data);
+      console.log(data.name);
+      console.log(data.main.temp);
+      console.log(data.wind.speed);
+      console.log(data.main.humidity);
     });
 });
 });
