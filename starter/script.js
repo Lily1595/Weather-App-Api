@@ -9,42 +9,47 @@ let index = 0;
 
 //when the page loads this code retrieves any saved history buttons from local storage
 //if saved data is present, the innerHTML of history list is altered 
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
   let savedHistory = localStorage.getItem("historyButtons");
   if (savedHistory) {
     historyList.innerHTML = savedHistory;
   }
 
-//when the search button is clicked, a new vairable is created called chosenCity which is set equal to the value of the user input 
-//a new variable called history button is created to be a clone of the search button 
-//classes are added to the history button and the text content is set as equal to the chosenCity variable 
-//then the history button is appended to the historyList 
-searchButton.addEventListener("click", function (e) {
-  e.preventDefault();
-  let chosenCity = searchInput.value;
-  let historyButton = searchButton.cloneNode(true);
-  historyButton.classList.add("history-button", "bg-light", "w-100", "btn", "mt-3", "text-dark");
-  historyButton.textContent = chosenCity;
-  historyList.appendChild(historyButton);
-  localStorage.setItem("history" + index, historyButton.textContent);
-  index++;
+  //when the search button is clicked, a new vairable is created called chosenCity which is set equal to the value of the user input 
+  //a new variable called history button is created to be a clone of the search button 
+  //classes are added to the history button and the text content is set as equal to the chosenCity variable 
+  //then the history button is appended to the historyList 
+  searchButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    let chosenCity = searchInput.value;
+    let historyButton = searchButton.cloneNode(true);
+    historyButton.classList.add("history-button", "bg-light", "w-100", "btn", "mt-3", "text-dark");
+    historyButton.textContent = chosenCity;
+    historyList.appendChild(historyButton);
+    localStorage.setItem("history" + index, historyButton.textContent);
+    index++;
 
-  //get api key and api address
-let APIKey = "bdd2c0c8b3b660738955be8280edc04c";
-let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + chosenCity + "&appid=" + APIKey;
+    //get api key and api address
+    let APIKey = "bdd2c0c8b3b660738955be8280edc04c";
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + chosenCity + "&appid=" + APIKey;
 
-//get values from API
-// LOOKING FOR PLACE, TEMP, WIND, HUMIDITY 
-fetch(queryURL)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      console.log(data.name);
-      console.log(data.main.temp);
-      console.log(data.wind.speed);
-      console.log(data.main.humidity);
-    });
-});
+    //get values from API
+    // LOOKING FOR PLACE, TEMP, WIND, HUMIDITY 
+    fetch(queryURL)
+      .then(response => response.json())
+      .then(data => {
+        document.querySelector(".city-name").innerHTML = "City Name";
+        document.querySelector(".temp").innerHTML = "Temperature";
+        document.querySelector(".wind").innerHTML = "Wind Speed";
+        document.querySelector(".humidity").innerHTML = "Humidity";
+        document.querySelector(".city-name").innerHTML += ": " + data.name;
+        document.querySelector(".temp").innerHTML += ": " + data.main.temp + "°C";
+        document.querySelector(".wind").innerHTML += ": " + data.wind.speed + "m/s";
+        document.querySelector(".humidity").innerHTML += ": " + data.main.humidity + "%";
+
+
+      });
+  });
 });
 
 
