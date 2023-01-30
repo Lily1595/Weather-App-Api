@@ -1,7 +1,3 @@
-//get api key and api address
-let APIKey = "bdd2c0c8b3b660738955be8280edc04c";
-let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Bujumbura,Burundi&appid=" + APIKey;
-
 //grab the elements needed from html using query selector 
 let formHeading = document.querySelector('#form-heading');
 let searchForm = document.querySelector('#search-form');
@@ -32,6 +28,18 @@ searchButton.addEventListener("click", function (e) {
   historyList.appendChild(historyButton);
   localStorage.setItem("history" + index, historyButton.textContent);
   index++;
+
+  //get api key and api address
+let APIKey = "bdd2c0c8b3b660738955be8280edc04c";
+let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + chosenCity + "&appid=" + APIKey;
+
+//get values from API
+fetch(queryURL)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    });
 });
 });
+
 
