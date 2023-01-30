@@ -9,6 +9,8 @@ let searchInput = document.querySelector('#search-input');
 let searchButton = document.querySelector('#search-button');
 let historyList = document.querySelector('#history');
 
+let index = 0;
+
 //when the page loads this code retrieves any saved history buttons from local storage
 //if saved data is present, the innerHTML of history list is altered 
 window.addEventListener("load", function() {
@@ -21,16 +23,15 @@ window.addEventListener("load", function() {
 //a new variable called history button is created to be a clone of the search button 
 //classes are added to the history button and the text content is set as equal to the chosenCity variable 
 //then the history button is appended to the historyList 
-  searchButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    let chosenCity = searchInput.value;
-    let historyButton = searchButton.cloneNode(true);
-    historyButton.classList.add("history-button", "bg-light", "w-100", "btn", "mt-3", "text-dark");
-    historyButton.textContent = chosenCity;
-    historyList.appendChild(historyButton);
-
-// Store history buttons in local storage
-    localStorage.setItem("historyButtons", historyList.innerHTML);
-  });
+searchButton.addEventListener("click", function (e) {
+  e.preventDefault();
+  let chosenCity = searchInput.value;
+  let historyButton = searchButton.cloneNode(true);
+  historyButton.classList.add("history-button", "bg-light", "w-100", "btn", "mt-3", "text-dark");
+  historyButton.textContent = chosenCity;
+  historyList.appendChild(historyButton);
+  localStorage.setItem("history" + index, historyButton.textContent);
+  index++;
+});
 });
 
