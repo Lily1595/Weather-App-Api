@@ -34,10 +34,10 @@ window.addEventListener("load", function () {
     let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + chosenCity + "&appid=" + APIKey;
 
     //get values from API
-    // LOOKING FOR PLACE, TEMP, WIND, HUMIDITY 
     fetch(queryURL)
       .then(response => response.json())
       .then(data => {
+        console.log(data);
         document.querySelector(".city-name").innerHTML = "City Name";
         document.querySelector(".temp").innerHTML = "Temperature";
         document.querySelector(".wind").innerHTML = "Wind Speed";
@@ -46,10 +46,22 @@ window.addEventListener("load", function () {
         document.querySelector(".temp").innerHTML += ": " + data.main.temp + "°C";
         document.querySelector(".wind").innerHTML += ": " + data.wind.speed + "m/s";
         document.querySelector(".humidity").innerHTML += ": " + data.main.humidity + "%";
-
-
       });
+      
+      //5 day forecast 
+      // get geo coordinates with name of city 
+      let queryURL2 = "http://api.openweathermap.org/geo/1.0/direct?q=" + chosenCity + "&limit=" + 5 + "&appid=" + APIKey
+
+      fetch(queryURL2)
+      .then(response => response.json())
+      .then(data => { console.log(data)
+
+         //use lat and lon to get the 5 day forecast 
+      let queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?lat=" + data[0].lat + "&lon=" + data[0].lon + "&appid=" + APIKey;
+      fetch(queryURL3)
+      .then(response => response.json())
+      .then(data2 => { console.log(data2)
+      }); 
+
   });
-});
-
-
+})})
