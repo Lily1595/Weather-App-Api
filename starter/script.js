@@ -1,3 +1,7 @@
+// convert farenheit to celcius 
+
+
+
 //grab the elements needed from html using query selector 
 let formHeading = document.querySelector('#form-heading');
 let searchForm = document.querySelector('#search-form');
@@ -60,7 +64,17 @@ window.addEventListener("load", function () {
       let queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?lat=" + data[0].lat + "&lon=" + data[0].lon + "&appid=" + APIKey;
       fetch(queryURL3)
       .then(response => response.json())
-      .then(data2 => { console.log(data2)
+      .then(data2 => { console.log(data2.list); 
+
+        
+        document.getElementById("one").textContent += data2.list[0].wind.deg;
+        document.getElementById("two").textContent +=  data2.list[1].wind.deg;
+        document.getElementById("three").textContent += data2.list[2].wind.deg;
+        document.getElementById("four").textContent += data2.list[3].wind.deg;
+        document.getElementById("five").textContent +=  data2.list[4].wind.deg;
+
+
+
       }); 
 
   });
